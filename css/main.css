@@ -186,7 +186,7 @@ h3{
     margin-top:50px;
 }
 .cartsItems {
-    padding:0 0 15px 0px;
+    padding:10px 0 15px 0px;
     border-bottom:1px solid #d1d1d1;
     position: relative;
     margin-bottom:20px;
@@ -236,7 +236,7 @@ width:22%;
 background-color: #bc0606;
 color: white;
 padding: 3px 7px;
-bottom: 0;
+top: 0;
 right: 0;
 display:none;
 cursor: pointer;

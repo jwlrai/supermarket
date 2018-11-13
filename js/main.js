@@ -128,6 +128,7 @@ var items = {
 
     ]
 };
+
 (function(){
     var lclstrg = window.localStorage;
     var preiousClick = null;
@@ -151,7 +152,7 @@ var items = {
             if( selectedItems !== undefined){
                 for(var i=0; i < selectedItems.length; i++){
                     var ele = '<li class="displayNone"><div><div><img src="/images/'+selectedItems[i].img+'"></div><h3>'+selectedItems[i].des+'</h3>';
-                    ele += '<p><span>$'+selectedItems[i].price.toFixed(2)+'</span><span class="displayNone"><span>$'+selectedItems[i].price.toFixed(2)+'</span><span data-id="'+selectedItems[i].id+'" class="addtocart">Add to Cart</span></p></div></li>';
+                    ele += '<p><span>$'+selectedItems[i].price.toFixed(2)+'</span><span class=""><span>$'+selectedItems[i].price.toFixed(2)+'</span><span data-id="'+selectedItems[i].id+'" class="addtocart">Add to Cart</span></p></div></li>';
                     $('#items ul').append(ele);
 
                 }
@@ -180,7 +181,7 @@ var items = {
                     boughtItem[id]['total']  = (boughtItem[id].qty + 1) *item.price;
 
                }
-               cartManage();
+               cartManage('add');
            
            }
         });
@@ -206,29 +207,37 @@ var items = {
             boughtItem = JSON.parse(carts);
             cartManage();
         }
-        console.log(boughtItem);
+        
     });
-    function cartManage(){
+    function cartManage(stat){
         var ele = '';
         var subtotal = 0;
+        // var cartItems = $('#cartItems div i.removeItem');    
         for (var prp in boughtItem) {
-            ele +=  '<div class="cartsItems displayNone"><div class="fl">';
+        
+            ele +=  '<div class="cartsItems "><div class="fl">';
             ele += '<img src="images/'+boughtItem[prp].img+'"/>'+boughtItem[prp].des+'</div><div class="fl">Qty.</br>';
             ele += '<input type="text" value="'+boughtItem[prp].qty+'" class="qty"/></div><div class="fl">Total </br>';
             ele += '<input type="text" value="'+boughtItem[prp].total.toFixed(2)+'" readonly class="total"/></div>';
             ele += '<div class="clear"></div><i data-id="'+prp+'" class="removeItem">x</i></div>';
             subtotal += boughtItem[prp].total;
-           
-       }
-       $('#cartItems').empty().append(ele);
-       
-       if(subtotal == 0){
+            
+        }
+        $('#cartItems').empty().append(ele);
+        if(subtotal == 0){
         $('#st span').empty().parent('p').hide();
-       }else{
+        }else{
         $('#st span').empty().text(subtotal.toFixed(2));
         $('#st').show();
-        $('.cartsItems').show(500);
-       }
-       lclstrg.setItem('cart', JSON.stringify(boughtItem));
+        // $('.cartsItems').show(500);
+        }
+           
+        
+        lclstrg.setItem('cart', JSON.stringify(boughtItem));
+       
+
+       
+       
+      
     }
 })();
